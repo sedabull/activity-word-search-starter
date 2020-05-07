@@ -10,6 +10,10 @@
   --default-margin: 50px;
 }
 
+.highlight {
+  background-color: yellow;
+}
+
 main {
   display: flex;
   margin: var(--default-margin) auto;

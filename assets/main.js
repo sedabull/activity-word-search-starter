@@ -7,9 +7,14 @@
 
 // TODO 1: Use querySelector to assign EACH of the above 
 // elements to a variable, just like this:
-let searchButton = document.querySelector('#search-button')
+let searchButton = document.querySelector('#search-button');
+let textbox = document.querySelector('#textbox');
+let sentence = document.querySelector('#sentence');
+let searchResults = document.querySelector('#search-results');
+let original = sentence.innerText;
 
 searchButton.addEventListener('click', function () {
+  sentence.innerHTML = original;
  
   // TODO 2: Write an IF statement which determines whether
   // the user-supplied string from #textbox is included in
@@ -25,7 +30,28 @@ searchButton.addEventListener('click', function () {
 
   // Hint 3: You can check whether string1 contains string2
   // by using string1.includes(string2) – which will return
-  // true or false. 
+  // true or false.
+  
+  if (textbox.value) {
+    let pattern = RegExp(textbox.value.trim(), 'gi');
+    let matches = sentence.innerText.match(pattern);
+
+    if (matches) {
+      sentence.innerHTML = sentence.innerHTML.replace(pattern, function(match) {
+        return `<span class="highlight">${match}</span>`;
+      });//end replace
+
+      if (matches.length === 1) {
+        searchResults.innerText = "1 match was found!";
+      } else {
+        searchResults.innerText = `${matches.length} matches were found!`;
+      }//end if/else
+    } else {
+      searchResults.innerText = "No Results. Too bad!";
+    }//end if/else
+  } else {
+    searchResults.innerText = "Please enter a search term.";
+  }//end if/else
 
   // TODO 3: If the user-supplied string is included in the
   // #sentence string, update the innerText of #search-results
@@ -33,7 +59,7 @@ searchButton.addEventListener('click', function () {
   // otherwise update it with a failure message (such as, 
   // "No results. Too bad!")
 
-})
+});
 
 // STRETCH GOALS (easiest to hardest):
 //
